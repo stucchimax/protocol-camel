@@ -41,7 +41,7 @@ function convertIETFXML2Json()
 var statuses={}
 var allsections={};
 var allrfcs={};
-var dnsrfcentries={};
+var ipv6rfcentries={};
 
 function tabulate(data, columns) {
     d3.select('#table').html("");
@@ -134,8 +134,8 @@ function updateTable()
 {
     var arr=[]
     var totalPages=0;
-    for(var e in dnsrfcentries) {
-        var o = dnsrfcentries[e];
+    for(var e in ipv6rfcentries) {
+        var o = ipv6rfcentries[e];
         if(statuses[o.currentStatus] && (!o.obsoleted || statuses["OBSOLETED"]) && (!o.draft || statuses["DRAFT"])) {
             var doit=false;
             for(var l in o.sectionsArray) {
@@ -153,7 +153,7 @@ function updateTable()
     
     tabulate(arr, ["docID", "title", "pages", "currentStatus", "obsoleted", "sections"]);
     
-    d3.select("#main").text("There are "+Object.keys(allrfcs).length+" RFCs, of which "+Object.keys(dnsrfcentries).length + " are relevant to DNS, of which "+arr.length+" are selected by filter. Total pages selected: "+totalPages);
+    d3.select("#main").text("There are "+Object.keys(allrfcs).length+" RFCs, of which "+Object.keys(ipv6rfcentries).length + " are relevant to IPv6, of which "+arr.length+" are selected by filter. Total pages selected: "+totalPages);
 }
                                                            
 d3.json("all-rfcs.json", {cache: "force-cache"}).then(function(js) {
@@ -162,19 +162,19 @@ d3.json("all-rfcs.json", {cache: "force-cache"}).then(function(js) {
         var rfc = js[a];
 
         // there must be a way, way better way to do this loop
-        if(rfc.docID.toLowerCase() in dnsrfcs) {
+        if(rfc.docID.toLowerCase() in ipv6rfcs) {
             statuses[rfc.currentStatus]=1;
             rfc.url = 'https://tools.ietf.org/html/'+rfc.docID.toLowerCase()+'.txt';
             rfc.sections="";
 
-            if("sections" in dnsrfcs[rfc.docID.toLowerCase()]) {
-                rfc.sectionsArray = dnsrfcs[rfc.docID.toLowerCase()].sections;
-                for(var b in dnsrfcs[rfc.docID.toLowerCase()].sections) {
-                    rfc.sections+= dnsrfcs[rfc.docID.toLowerCase()].sections[b]+" ";
-                    allsections[dnsrfcs[rfc.docID.toLowerCase()].sections[b]] = 1;
+            if("sections" in ipv6rfcs[rfc.docID.toLowerCase()]) {
+                rfc.sectionsArray = ipv6rfcs[rfc.docID.toLowerCase()].sections;
+                for(var b in ipv6rfcs[rfc.docID.toLowerCase()].sections) {
+                    rfc.sections+= ipv6rfcs[rfc.docID.toLowerCase()].sections[b]+" ";
+                    allsections[ipv6rfcs[rfc.docID.toLowerCase()].sections[b]] = 1;
                 }
             }
-            dnsrfcentries[rfc.docID] = rfc;
+            ipv6rfcentries[rfc.docID] = rfc;
         }
     }
     statuses["INFORMATIONAL"]=0;
@@ -197,7 +197,7 @@ d3.json("all-rfcs.json", {cache: "force-cache"}).then(function(js) {
             o.url = 'https://tools.ietf.org/id/'+js[a].name;
             o.sections="core";
             o.sectionsArray=["core"];
-            dnsrfcentries[o.docID]=o;
+            ipv6rfcentries[o.docID]=o;
         }
 
         createTable();
