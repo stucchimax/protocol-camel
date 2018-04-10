@@ -201,6 +201,10 @@ d3.json("all-rfcs.json", {cache: "force-cache"}).then(function(js) {
         }
 
         createTable();
-        updateTable();
+
+        updateTable()
+        $('#table table').DataTable();
+
+
     });
 });
