@@ -45,8 +45,9 @@ var ipv6rfcentries={};
 
 function tabulate(data, columns) {
     d3.select('#table').html("");
-    var table = d3.select('#table').append('table')
-    var thead = table.append('thead')
+    var table = d3.select('#table').append('table');
+    table.classed('table-striped', true);
+    var thead = table.append('thead');
     var	tbody = table.append('tbody');
 
     // append the header row
@@ -101,8 +102,8 @@ function createTable()
     statuses["DRAFT"]=0;
     var statarr = Object.keys(statuses);
 
-    var table = d3.select('#selector').append('table')
-    var thead = table.append('thead')
+    var table = d3.select('#selector').append('table');
+    var thead = table.append('thead');
     var	tbody = table.append('tbody');
     
     tbody.append('tr')
@@ -132,7 +133,7 @@ function createTable()
 
 function updateTable()
 {
-    var arr=[]
+    var arr=[];
     var totalPages=0;
     for(var e in ipv6rfcentries) {
         var o = ipv6rfcentries[e];
@@ -202,5 +203,8 @@ d3.json("all-rfcs.json", {cache: "force-cache"}).then(function(js) {
 
         createTable();
         updateTable();
+        $('#table table').DataTable();
+
+
     });
 });
