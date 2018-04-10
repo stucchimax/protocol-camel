@@ -15,60 +15,50 @@
     <script src="ext/d3/d3.min.js"></script>
     <script src="ipv6-rfcs.js"></script>
     <style>
-        p, H1 {
-            font-family: "Arial", Verdana, sans-serif;
-        }
 
-        label {
-            font-family: "Arial", Verdana, sans-serif;
-            font-size: small;
-        }
+        .grey {background: #eee;}
+        
+        #selector table {font-size: 0.8em;}
 
-        td, th {
-            padding: 1px 4px;
-        }
-
-        tr:nth-child(even) {
-            background: #CCC
-        }
-
-        tr:nth-child(odd) {
-            background: #FFF
-        }
-
-        label {
-            cursor: pointer;
-        }
-
-        input[type="checkbox"] {
-            cursor: pointer;
+        #selector table label,
+        #table th {
+            text-transform: capitalize;
         }
 
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="shortcut icon" href="camel.png" type="image/png">
     <title>IPv6 Camel</title>
 </head>
 <body>
+
     <a href="https://github.com/stucchimax/protocol-camel">
         <img style="position: absolute; top: 0; right: 0; border: 0;"
             src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"
             alt="Fork me on GitHub"></a>
-    <p>
-        🐫 Welcome to the IPv6 Camel Viewer! Please see <a href="https://github.com/stucchimax/protocol-camel">GitHub</a>
-        for what this is &amp; how to contribute.
-    </p>
-    <table width="75%">
-        <tr>
-            <td>
-                <div id="selector"></div>
-            </td>
-        </tr>
-    </table>
-    <p id="main"></p>
-    <div id="table"></div>
-    <p></p>
-    <span id="json"></span>
+    <div class="container">
+
+        <h1>IPv6 Camel</h1>
+        <p>
+            🐫 Welcome to the IPv6 Camel Viewer! Please see <a href="https://github.com/stucchimax/protocol-camel">GitHub</a>
+            for what this is &amp; how to contribute.
+        </p>
+
+            <button class="btn btn-dark"
+                    data-toggle="collapse"
+                    data-target="#selector" >Filter Options</button>
+
+
+            <div id="selector" class="collapse p-2 grey"></div>
+
+
+            <p id="main" class="mt-2"></p>
+            <div id="table" ></div>
+        <p></p>
+        <span id="json"></span>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
